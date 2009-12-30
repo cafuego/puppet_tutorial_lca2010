@@ -98,12 +98,11 @@
 
 </div><div class='slide'>
 
-<h1>Introduction to Puppet</h1>
+<h1>Getting Started</h1>
 
 <ul>
-<li>It's all about Resources</li>
-<li>We've got a custom language</li>
-<li>Some executables</li>
+<li>Getting help</li>
+<li>Installation</li>
 </ul>
 
 
@@ -117,6 +116,87 @@
 <li><a href="http://groups.google.com/group/puppet-users">http://groups.google.com/group/puppet-users</a></li>
 <li>Wiki <a href="http://reductivelabs.com/trac/puppet/wiki">http://reductivelabs.com/trac/puppet/wiki</a></li>
 <li>Bug Tracker <a href="http://projects.reductivelabs.com">http://projects.reductivelabs.com</a></li>
+</ul>
+
+
+
+</div><div class='slide'>
+
+<h1>    Versions</h1>
+
+<p>Install a recent version of Puppet!</p>
+
+<ul>
+<li>Recently released is 0.25.2</li>
+</ul>
+
+
+
+</div><div class='slide'>
+
+<h1>    Installing</h1>
+
+<p>Lots of ways to install Puppet (and Facter) - you just need Ruby</p>
+
+<ul>
+<li>New Ubuntu LTS release has 0.25.2 - backport otherwise</li>
+<li>Use EPEL for Fedora/Red Hat</li>
+</ul>
+
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> gem install facter puppet
+<span class="line-numbers">   2 </span> apt-get install puppet facter
+<span class="line-numbers">   3 </span> yum install puppet puppet-server facter
+</pre></pre>
+
+<p><!-- end code --></p>
+
+
+
+</div><div class='slide'>
+
+<h1>    Installing Facter</h1>
+
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> wget http://reductivelabs.com/downloads/facter/facter-1.5.7.tar.gz
+<span class="line-numbers">   2 </span> tar -zxf facter-1.5.7.tar.gz
+<span class="line-numbers">   3 </span> cd facter-1.5.7
+<span class="line-numbers">   4 </span> sudo ./install.rb
+</pre></pre>
+
+<p><!-- end code --></p>
+
+
+
+</div><div class='slide'>
+
+<h1>    Installing Puppet</h1>
+
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> wget http://reductivelabs.com/downloads/puppet/puppet-0.25.1.tar.gz
+<span class="line-numbers">   2 </span> tar -zxf puppet-0.25.1.tar.gz
+<span class="line-numbers">   3 </span> cd puppet-0.25.1
+<span class="line-numbers">   4 </span> sudo ./install.rb
+</pre></pre>
+
+<p><!-- end code --></p>
+
+
+
+</div><div class='slide'>
+
+<h1>Introduction to Puppet</h1>
+
+<ul>
+<li>It's all about Resources</li>
+<li>We've got a custom language</li>
+<li>Some executables</li>
 </ul>
 
 

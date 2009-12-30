@@ -36,12 +36,11 @@ Goals
 * Know how to use the tools
 
 
-Introduction to Puppet
-======================
+Getting Started
+===============
 
-* It's all about Resources
-* We've got a custom language
-* Some executables
+* Getting help
+* Installation
 
 
     Getting Help
@@ -51,6 +50,53 @@ Introduction to Puppet
 * <http://groups.google.com/group/puppet-users>
 * Wiki <http://reductivelabs.com/trac/puppet/wiki>
 * Bug Tracker <http://projects.reductivelabs.com>
+
+
+    Versions
+============
+
+Install a recent version of Puppet!
+
+* Recently released is 0.25.2
+
+
+
+    Installing
+==============
+
+Lots of ways to install Puppet (and Facter) - you just need Ruby
+* New Ubuntu LTS release has 0.25.2 - backport otherwise
+* Use EPEL for Fedora/Red Hat
+
+<% code :lang => "shell-unix-generic" do %>gem install facter puppet
+apt-get install puppet facter
+yum install puppet puppet-server facter<% end %>
+
+
+    Installing Facter
+=====================
+
+<% code :lang => "shell-unix-generic" do %>wget http://reductivelabs.com/downloads/facter/facter-1.5.7.tar.gz
+tar -zxf facter-1.5.7.tar.gz
+cd facter-1.5.7
+sudo ./install.rb<% end %>
+
+
+    Installing Puppet
+=====================
+
+<% code :lang => "shell-unix-generic" do %>wget http://reductivelabs.com/downloads/puppet/puppet-0.25.1.tar.gz
+tar -zxf puppet-0.25.1.tar.gz
+cd puppet-0.25.1
+sudo ./install.rb<% end %>
+
+
+Introduction to Puppet
+======================
+
+* It's all about Resources
+* We've got a custom language
+* Some executables
 
 
     Resources
