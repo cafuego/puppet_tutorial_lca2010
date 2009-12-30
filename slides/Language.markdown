@@ -1,1 +1,1 @@
-<%= code 'examples/language.pp', :lang => "puppet" %>
+<%= code 'examples/language.pp', :lang => "ruby" %>

@@ -129,7 +129,7 @@
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> ralsh package
-<span class="line-numbers">   2 </span> ralsh user luke
+<span class="line-numbers">   2 </span> ralsh user jamesturnbull
 <span class="line-numbers">   3 </span> ralsh user foo
 <span class="line-numbers">   4 </span> ralsh user foo ensure=present shell=/bin/bash home=/Users/foo
 <span class="line-numbers">   5 </span> ralsh user foo shell=/usr/bin/bash
@@ -292,6 +292,26 @@
 <span class="line-numbers">   3 </span> modules/mymod/manifests/init.pp
 <span class="line-numbers">   4 </span> modules/mymod/templates/mytemplate.erb
 <span class="line-numbers">   5 </span> modules/mymod/plugins/puppet/parser/functions/myfunction.rb
+</pre></pre>
+
+<p><!-- end code --></p>
+
+
+
+</div><div class='slide'>
+
+<h1>Version Control</h1>
+
+<p>Version Control your Repository:
+<!-- begin code{:lang=>"shell-unix-generic"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> cd modules
+<span class="line-numbers">   2 </span> git init
+<span class="line-numbers">   3 </span> git add *
+<span class="line-numbers">   4 </span> git commit -m <span class="String"><span class="Punctuation">&quot;</span>Adding module structure<span class="Punctuation">&quot;</span></span>
+<span class="line-numbers">   5 </span> git remote add origin git@github.com:/jamtur01/modules.git
+<span class="line-numbers">   6 </span> git push origin master
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -646,6 +666,8 @@
 <h1>Other Language Functions</h1>
 
 <p>In general, rely on the tutorial on the wiki, not me</p>
+
+<p><a href="http://reductivelabs.com/trac/puppet/wiki/LanguageTutorial">http://reductivelabs.com/trac/puppet/wiki/LanguageTutorial</a></p>
 
 
 

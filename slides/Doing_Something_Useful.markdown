@@ -2,7 +2,7 @@ I always start with `sudo`.
 
 In `repo/modules/sudo/manifests/init.pp`:
 
-<% code :lang => "puppet" do %>
+<% code :lang => "ruby" do %>
 class sudo {
     file { "/usr/bin/sudo":
         owner => root,

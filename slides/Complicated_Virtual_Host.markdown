@@ -1,1 +1,1 @@
-<%= code 'repo/modules/apache/manifests/vhost2.pp', :lang => "puppet" %>
+<%= code 'repo/modules/apache/manifests/vhost2.pp', :lang => "ruby" %>

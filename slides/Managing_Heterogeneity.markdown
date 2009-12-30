@@ -1,4 +1,4 @@
-<% code :lang => "puppet" do %>file { sudo:
+<% code :lang => "ruby" do %>file { sudo:
     path => $operatingsystem ? {
         darwin => "/usr/bin/sudo",
         default => "/usr/sbin/sudo",

@@ -121,6 +121,18 @@ modules/mymod/templates/mytemplate.erb
 modules/mymod/plugins/puppet/parser/functions/myfunction.rb<% end %>
 
 
+Version Control
+===============
+
+Version Control your Repository:
+<% code :lang => "shell-unix-generic" do %>cd modules
+git init
+git add *
+git commit -m "Adding module structure"
+git remote add origin git@github.com:/jamtur01/modules.git
+git push origin master<% end %>
+
+
     Your First Module
 =====================
 
@@ -301,6 +313,7 @@ Other Language Functions
 
 In general, rely on the tutorial on the wiki, not me
 
+<http://reductivelabs.com/trac/puppet/wiki/LanguageTutorial>
 
     Relationships
 =================
