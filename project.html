@@ -61,7 +61,7 @@
 <h1>Introduction to Managed Infrastructures with Puppet</h1>
 
 <blockquote>
-    <p>by James Turnbull</p>
+    <p>by James Turnbull &amp; Avi Miller</p>
     
     <p>Puppet Release Manager</p>
     
@@ -232,9 +232,9 @@
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> file <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">&quot;</span>/tmp/example_file<span class="Punctuation">&quot;</span></span><span class="Punctuation">:</span>
-<span class="line-numbers">   2 </span>     <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> present
+<span class="line-numbers">   2 </span>     <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> present<span class="Punctuation">,</span>
 <span class="line-numbers">   3 </span>     content <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>This is a test<span class="CharacterConstant">\n</span><span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
-<span class="line-numbers">   4 </span>     mode <span class="Punctuation">=&gt;</span> <span class="Integer">640</span>
+<span class="line-numbers">   4 </span>     mode <span class="Punctuation">=&gt;</span> <span class="Integer">640</span><span class="Punctuation">,</span>
 <span class="line-numbers">   5 </span> <span class="Punctuation">}</span>
 </pre></pre>
 
@@ -729,7 +729,7 @@
 <pre class="amy"><span class="line-numbers">   1 </span> $ facter <span class="KeywordOperator">|</span> wc -l
 <span class="line-numbers">   2 </span>       68
 <span class="line-numbers">   3 </span> $ facter <span class="KeywordOperator">|</span> grep name
-<span class="line-numbers">   4 </span> hostname =<span class="KeywordOperator">&gt;</span> rhizome-lovedthanlost-net
+<span class="line-numbers">   4 </span> hostname =<span class="KeywordOperator">&gt;</span> rhizome
 <span class="line-numbers">   5 </span> macosx_productname =<span class="KeywordOperator">&gt;</span> Mac OS X
 <span class="line-numbers">   6 </span> sp_local_host_name =<span class="KeywordOperator">&gt;</span> rhizome.lovedthanlost.net
 <span class="line-numbers">   7 </span> sp_machine_name =<span class="KeywordOperator">&gt;</span> MacBook Pro
@@ -872,6 +872,7 @@
 <h1>Things We Skipped</h1>
 
 <ul>
+<li>Dashboard</li>
 <li>Reporting</li>
 <li>Queueing</li>
 <li>Inheritance</li>

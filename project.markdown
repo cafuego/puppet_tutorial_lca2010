@@ -10,7 +10,7 @@ footer:  <img src="images/Reductive-100.png" alt="Reductive Labs" align=bottom> 
 Introduction to Managed Infrastructures with Puppet
 ===================================================
 
-> by James Turnbull
+> by James Turnbull & Avi Miller
 
 > Puppet Release Manager
 
@@ -399,6 +399,7 @@ Note the qualified definition name.  This is required for correct autoloading.
 Things We Skipped
 =================
 
+* Dashboard
 * Reporting
 * Queueing
 * Inheritance

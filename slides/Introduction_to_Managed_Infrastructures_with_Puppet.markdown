@@ -1,4 +1,4 @@
-> by James Turnbull
+> by James Turnbull & Avi Miller
 
 > Puppet Release Manager
 

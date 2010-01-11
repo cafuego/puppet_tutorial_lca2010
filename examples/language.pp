@@ -1,5 +1,5 @@
 file { "/tmp/example_file":
-    ensure => present
+    ensure => present,
     content => "This is a test\n",
-    mode => 640
+    mode => 640,
 }
