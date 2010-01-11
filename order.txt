@@ -1,6 +1,7 @@
 Introduction to Managed Infrastructures with Puppet
 All About Configuration Management
-Goals
+All About Puppet
+Goals Of This Presentation
 Getting Started
     Getting Help
     Versions

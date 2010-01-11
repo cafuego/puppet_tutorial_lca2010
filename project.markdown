@@ -10,11 +10,9 @@ footer:  <img src="images/Reductive-100.png" alt="Reductive Labs" align=bottom> 
 Introduction to Managed Infrastructures with Puppet
 ===================================================
 
+*** 
+
 > by James Turnbull & Avi Miller
-
-> Puppet Release Manager
-
-> james@lovedthanlost.net
 
 Presentation available at `git://github.com/jamtur01/puppet_tutorial_lca2010.git`
 
@@ -28,8 +26,16 @@ All About Configuration Management
 * Repeatable
 
 
-Goals
-=====
+All About Puppet
+================
+
+* ? 
+* Client-Server architecture
+* GPL and written in Ruby
+
+
+Goals Of This Presentation
+==========================
 
 * Get an Introduction to Puppet
 * Build a simple Puppet Repository
