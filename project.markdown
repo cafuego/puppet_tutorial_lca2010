@@ -21,10 +21,9 @@ Presentation available at `git://github.com/jamtur01/puppet_tutorial_lca2010.git
 Configuration Management
 ========================
 
-*
-*
-*
-
+* Automate your world and streamline build and management 
+* Make the hetergenous feel homogenous
+* Get to the pub sooner...
 
 
 All About Puppet
@@ -200,13 +199,11 @@ A Puppet Repository
 
 Basic Repository Structure:
 
-Usually underneath /etc/puppet
-
-<% code :lang => "shell-unix-generic" do %>manifests/site.pp
-modules/
-modules/mymod/manifests/init.pp
-modules/mymod/templates/mytemplate.erb
-modules/mymod/plugins/puppet/parser/functions/myfunction.rb<% end %>
+<% code :lang => "shell-unix-generic" do %>/etc/puppet/manifests/site.pp
+/etc/puppet/modules/
+/etc/puppet/modules/mymod/manifests/init.pp
+/etc/puppet/modules/mymod/templates/mytemplate.erb
+/etc/puppet/modules/mymod/plugins/puppet/parser/functions/myfunction.rb<% end %>
 
 
 Version Control
@@ -230,10 +227,9 @@ Tip: pre and post commit hooks
 mkdir -p repo/manifests repo/modules/foo/manifests
 cp examples/class_but_no_include.pp repo/modules/foo/manifests/init.pp<% end %>
 
-* Autoloading
-* Namespacing
-
 To use: <% code :lang => "shell-unix-generic" do %>puppet --modulepath repo/modules -e 'include foo'<% end %>
+
+* Modules are autoloaded and namespaced
 
 
     Your First Node
@@ -245,7 +241,7 @@ To use: <% code :lang => "shell-unix-generic" do %>puppet --modulepath repo/modu
     Putting It Together
 =======================
 
-<% code :lang => "shell-unix-generic" do %>puppet --modulepath repo/modules repo/manifests/site.pp<% end %>
+<% code :lang => "shell-unix-generic" do %>puppet /etc/puppet/manifests/site.pp<% end %>
 
 You now have a "complete" Puppet repository, ready to extend.
 

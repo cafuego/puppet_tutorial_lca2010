@@ -1,0 +1,3 @@
+* Automate your world and streamline build and management 
+* Make the hetergenous feel homogenous
+* Get to the pub sooner...

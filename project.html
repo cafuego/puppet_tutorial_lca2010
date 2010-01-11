@@ -74,9 +74,11 @@
 
 <h1>Configuration Management</h1>
 
-<p>*
-*
-*</p>
+<ul>
+<li>Automate your world and streamline build and management </li>
+<li>Make the hetergenous feel homogenous</li>
+<li>Get to the pub sooner...</li>
+</ul>
 
 
 
@@ -446,16 +448,14 @@
 
 <p>Basic Repository Structure:</p>
 
-<p>Usually underneath /etc/puppet</p>
-
 <p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> manifests/site.pp
-<span class="line-numbers">   2 </span> modules/
-<span class="line-numbers">   3 </span> modules/mymod/manifests/init.pp
-<span class="line-numbers">   4 </span> modules/mymod/templates/mytemplate.erb
-<span class="line-numbers">   5 </span> modules/mymod/plugins/puppet/parser/functions/myfunction.rb
+<pre class="amy"><span class="line-numbers">   1 </span> /etc/puppet/manifests/site.pp
+<span class="line-numbers">   2 </span> /etc/puppet/modules/
+<span class="line-numbers">   3 </span> /etc/puppet/modules/mymod/manifests/init.pp
+<span class="line-numbers">   4 </span> /etc/puppet/modules/mymod/templates/mytemplate.erb
+<span class="line-numbers">   5 </span> /etc/puppet/modules/mymod/plugins/puppet/parser/functions/myfunction.rb
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -493,11 +493,6 @@
 
 <p><!-- end code --></p>
 
-<ul>
-<li>Autoloading</li>
-<li>Namespacing</li>
-</ul>
-
 <p>To use: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
@@ -505,6 +500,10 @@
 </pre></pre>
 
 <p><!-- end code --></p>
+
+<ul>
+<li>Modules are autoloaded and namespaced</li>
+</ul>
 
 
 
@@ -533,7 +532,7 @@
 <p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> puppet --modulepath repo/modules repo/manifests/site.pp
+<pre class="amy"><span class="line-numbers">   1 </span> puppet /etc/puppet/manifests/site.pp
 </pre></pre>
 
 <p><!-- end code --></p>
