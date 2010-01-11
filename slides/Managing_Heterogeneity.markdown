@@ -1,9 +1,10 @@
-<% code :lang => "ruby" do %>file { sudo:
-    path => $operatingsystem ? {
-        darwin => "/usr/bin/sudo",
-        default => "/usr/sbin/sudo",
-    },
+<% code :lang => "ruby" do %>file { "/etc/sudoers":
     owner => root,
-    group => 0,
-    mode => 4111
+    group => $operatingsystem ? {
+        darwin => "wheel",
+        default => "root",
+    },
+    mode => 440,
 }<% end %>
+
+

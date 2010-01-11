@@ -18,28 +18,43 @@ Presentation available at `git://github.com/jamtur01/puppet_tutorial_lca2010.git
 
 
 
-All About Configuration Management
-==================================
+Configuration Management
+========================
 
-* Automated
-* Consistent
-* Repeatable
+*
+*
+*
+
 
 
 All About Puppet
 ================
 
-* ? 
+* Automated
+> Runs continously
+
+* Declarative
+> Declares end state rather than the process
+
+* Idempotent
+> Repeated applications have the same effect as one
+
+
+More About Puppet
+=================
+
+* GPLv2 
 * Client-Server architecture
-* GPL and written in Ruby
+* Written in Ruby
+* Awesome
 
 
 Goals Of This Presentation
 ==========================
 
-* Get an Introduction to Puppet
+* Get an introduction to Puppet
 * Build a simple Puppet Repository
-* Know how to use the tools
+* Know how to use the tool
 
 
 Getting Started
@@ -58,21 +73,13 @@ Getting Started
 * Bug Tracker <http://projects.reductivelabs.com>
 
 
-    Versions
-============
-
-Install a recent version of Puppet!
-
-* Recently released is 0.25.2
-
-
-
     Installing
 ==============
 
 Lots of ways to install Puppet (and Facter) - you just need Ruby
 * New Ubuntu LTS release has 0.25.2 - backport otherwise
 * Use EPEL for Fedora/Red Hat
+* Use a package - installation from source not recommended for production
 
 <% code :lang => "shell-unix-generic" do %>gem install facter puppet
 apt-get install puppet facter
@@ -101,12 +108,32 @@ Introduction to Puppet
 ======================
 
 * It's all about Resources
+> > Resources describe the state of configuration items 
+
 * We've got a custom language
+> > (Mostly) Turing complete
+> > Soon to have Ruby-based DSL
+
 * Some executables
 
 
     Resources
 =============
+
+* A resource:
+
+<% code :lang => "ruby" do %>user { 'james':
+    ensure => 'present',
+}
+<% end %>
+
+Try it yourself:
+
+<% code :lang => "shell-unix-generic" do %>ralsh user james<% end %>
+
+
+    More Resources
+==================
 
 <%= code 'examples/ralsh.sh', :lang => "shell-unix-generic" %>
 
@@ -151,6 +178,9 @@ Produces: <% code :lang => "shell-unix-generic" do %><%= %x{touch /tmp/eh; puppe
 ==================
 
 <%= code 'examples/class_but_no_include.pp', :lang => "ruby" %>
+
+<% code :lang => "shell-unix-generic" do %>puppet examples/class_but_with_no_include.pp<% end %>
+
 Produces: <% code :lang => "shell-unix-generic" do %><%= %x{sudo rm -f /tmp/foo; puppet --color=false examples/class_but_no_include.pp}.chomp %> <% end %>
 
 
@@ -158,6 +188,9 @@ Produces: <% code :lang => "shell-unix-generic" do %><%= %x{sudo rm -f /tmp/foo;
 =====================
 
 <%= code 'examples/class_with_include.pp', :lang => "ruby" %>
+
+<% code :lang => "shell-unix-generic" do %>puppet examples/class_with_include.pp<% end %>
+
 Produces: <% code :lang => "shell-unix-generic" do %><%= %x{sudo rm -f /tmp/foo; puppet --color=false examples/class_with_include.pp}.chomp %> <% end %>
 
 
@@ -166,6 +199,9 @@ A Puppet Repository
 ===================
 
 Basic Repository Structure:
+
+Usually underneath /etc/puppet
+
 <% code :lang => "shell-unix-generic" do %>manifests/site.pp
 modules/
 modules/mymod/manifests/init.pp
@@ -176,13 +212,15 @@ modules/mymod/plugins/puppet/parser/functions/myfunction.rb<% end %>
 Version Control
 ===============
 
-Version Control your Repository:
-<% code :lang => "shell-unix-generic" do %>cd modules
-git init
-git add *
-git commit -m "Adding module structure"
-git remote add origin git@github.com:/jamtur01/modules.git
-git push origin master<% end %>
+Manifests are text so version control your manifest code.
+
+* Git
+* Subversion
+* Bazaar
+* etc
+
+Tip: pre and post commit hooks
+
 
 
     Your First Module
@@ -191,6 +229,9 @@ git push origin master<% end %>
 <% code :lang => "shell-unix-generic" do %>mkdir repo
 mkdir -p repo/manifests repo/modules/foo/manifests
 cp examples/class_but_no_include.pp repo/modules/foo/manifests/init.pp<% end %>
+
+* Autoloading
+* Namespacing
 
 To use: <% code :lang => "shell-unix-generic" do %>puppet --modulepath repo/modules -e 'include foo'<% end %>
 
@@ -252,6 +293,8 @@ Produces: <% code :lang => "shell-unix-generic" do %><%= %x{bash examples/defaul
 
 <% code :lang => "shell-unix-generic" do %>sudo puppetd --test --confdir /tmp/server --vardir /tmp/server --server localhost<% end %>
 
+Correct - output
+
 Produces: <% code :lang => "shell-unix-generic" do %>info: Caching catalog at /tmp/server/state/localconfig.yaml
 notice: Starting catalog run
 notice: //Node[default]/foo/File[/tmp/foo]/ensure: created
@@ -304,6 +347,13 @@ puppetca --confdir /tmp/server/ --vardir /tmp/server --sign other.madstop.com<% 
 Now run the client again.
 
 
+    Running the Agent Again
+===========================
+
+Second agent run
+
+
+
 Doing Something Useful
 ======================
 
@@ -313,10 +363,8 @@ In `repo/modules/sudo/manifests/init.pp`:
 
 <% code :lang => "ruby" do %>
 class sudo {
-    file { "/usr/bin/sudo":
-        owner => root,
-        group => wheel,
-        mode => 4111
+    package { "sudo":
+        ensure => present,
     }
 }<% end %>
 
@@ -332,22 +380,23 @@ Create your sudoers file at `repo/modules/sudo/files/sudoers`, then add this to 
     owner => root,
     group => wheel,
     mode => 440,
-    source => "puppet:///sudo/sudoers"
+    source => "puppet:///sudo/sudoers",
 }<% end %>
 
 
     Managing Heterogeneity
 ==========================
 
-<% code :lang => "ruby" do %>file { sudo:
-    path => $operatingsystem ? {
-        darwin => "/usr/bin/sudo",
-        default => "/usr/sbin/sudo",
-    },
+<% code :lang => "ruby" do %>file { "/etc/sudoers":
     owner => root,
-    group => 0,
-    mode => 4111
+    group => $operatingsystem ? {
+        darwin => "wheel",
+        default => "root",
+    },
+    mode => 440,
 }<% end %>
+
+
 
 
     Facter
@@ -389,17 +438,31 @@ Definitions
 Note the qualified definition name.  This is required for correct autoloading.
 
 
-    Using Definitions
-=====================
+    Using Simple Definitions
+============================
 
-<%= code 'repo/modules/apache/manifests/init.pp', :lang => "ruby" %>
-
+<% code :lang => "ruby" do %>class apache {
+    apache::vhost { 'reductivelabs.com':
+        docroot => "/var/www/reductivelabs.com"
+    }
+}<% end %>
 
 
     Complicated Virtual Host
 ============================
 
 <%= code 'repo/modules/apache/manifests/vhost2.pp', :lang => "ruby" %>
+
+
+    Using Complicated Definitions
+=================================
+
+<% code :lang => "ruby" do %>class apache {
+    apache::vhost { 'foo.com':
+        docroot => "/var/www/foo.com",
+        ensure => absent,
+    }
+}<% end %>
 
 
 Things We Skipped
@@ -417,8 +480,5 @@ Things We Skipped
 Conclusion
 ==========
 
-
-> 
-
-james@lovedthanlost.net
+* Awesome right? 
 

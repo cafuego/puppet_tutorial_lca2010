@@ -1,5 +1,2 @@
-
-> 
-
-james@lovedthanlost.net
+* Awesome right? 
 

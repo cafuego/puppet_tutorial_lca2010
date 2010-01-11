@@ -1,3 +1,10 @@
-<%= code 'examples/ralsh.sh', :lang => "shell-unix-generic" %>
+* A resource:
 
-Try `ralsh package`, and remind me to tell you to play around here.
+<% code :lang => "ruby" do %>user { 'james':
+    ensure => 'present',
+}
+<% end %>
+
+Try it yourself:
+
+<% code :lang => "shell-unix-generic" do %>ralsh user james<% end %>

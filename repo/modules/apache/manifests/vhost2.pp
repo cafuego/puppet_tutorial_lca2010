@@ -3,10 +3,10 @@ define apache::vhost2($docroot, $ensure = present) {
     $enabled => $ensure ? { enabled => symlink, default => absent }
     file { "/tmp/apache/sites-available/$name":
         content => template("apache/vhost.erb"),
-        ensure => $available
+        ensure => $available,
     }
     file { "/tmp/apache/sites-enabled/$name":
         target => "/tmp/apache/sites-available/$name",
-        ensure => $enabled
+        ensure => $enabled,
     }
 }

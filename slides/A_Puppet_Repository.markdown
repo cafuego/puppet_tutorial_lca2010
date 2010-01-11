@@ -1,4 +1,7 @@
 Basic Repository Structure:
+
+Usually underneath /etc/puppet
+
 <% code :lang => "shell-unix-generic" do %>manifests/site.pp
 modules/
 modules/mymod/manifests/init.pp

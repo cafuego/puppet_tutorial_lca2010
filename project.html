@@ -72,13 +72,11 @@
 
 </div><div class='slide'>
 
-<h1>All About Configuration Management</h1>
+<h1>Configuration Management</h1>
 
-<ul>
-<li>Automated</li>
-<li>Consistent</li>
-<li>Repeatable</li>
-</ul>
+<p>*
+*
+*</p>
 
 
 
@@ -87,9 +85,34 @@
 <h1>All About Puppet</h1>
 
 <ul>
-<li>? </li>
+<li><p>Automated</p>
+
+<blockquote>
+    <p>Runs continously</p>
+</blockquote></li>
+<li><p>Declarative</p>
+
+<blockquote>
+    <p>Declares end state rather than the process</p>
+</blockquote></li>
+<li><p>Idempotent</p>
+
+<blockquote>
+    <p>Repeated applications have the same effect as one</p>
+</blockquote></li>
+</ul>
+
+
+
+</div><div class='slide'>
+
+<h1>More About Puppet</h1>
+
+<ul>
+<li>GPLv2 </li>
 <li>Client-Server architecture</li>
-<li>GPL and written in Ruby</li>
+<li>Written in Ruby</li>
+<li>Awesome</li>
 </ul>
 
 
@@ -99,9 +122,9 @@
 <h1>Goals Of This Presentation</h1>
 
 <ul>
-<li>Get an Introduction to Puppet</li>
+<li>Get an introduction to Puppet</li>
 <li>Build a simple Puppet Repository</li>
-<li>Know how to use the tools</li>
+<li>Know how to use the tool</li>
 </ul>
 
 
@@ -132,18 +155,6 @@
 
 </div><div class='slide'>
 
-<h1>    Versions</h1>
-
-<p>Install a recent version of Puppet!</p>
-
-<ul>
-<li>Recently released is 0.25.2</li>
-</ul>
-
-
-
-</div><div class='slide'>
-
 <h1>    Installing</h1>
 
 <p>Lots of ways to install Puppet (and Facter) - you just need Ruby</p>
@@ -151,6 +162,7 @@
 <ul>
 <li>New Ubuntu LTS release has 0.25.2 - backport otherwise</li>
 <li>Use EPEL for Fedora/Red Hat</li>
+<li>Use a package - installation from source not recommended for production</li>
 </ul>
 
 <p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
@@ -204,9 +216,22 @@
 <h1>Introduction to Puppet</h1>
 
 <ul>
-<li>It's all about Resources</li>
-<li>We've got a custom language</li>
-<li>Some executables</li>
+<li><p>It's all about Resources</p>
+
+<blockquote>
+    <blockquote>
+        <p>Resources describe the state of configuration items </p>
+    </blockquote>
+</blockquote></li>
+<li><p>We've got a custom language</p>
+
+<blockquote>
+    <blockquote>
+        <p>(Mostly) Turing complete
+        Soon to have Ruby-based DSL</p>
+    </blockquote>
+</blockquote></li>
+<li><p>Some executables</p></li>
 </ul>
 
 
@@ -214,6 +239,36 @@
 </div><div class='slide'>
 
 <h1>    Resources</h1>
+
+<ul>
+<li>A resource:</li>
+</ul>
+
+<p><!-- begin code{:lang=>"ruby"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> user <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">'</span>james<span class="Punctuation">'</span></span><span class="Punctuation">:</span>
+<span class="line-numbers">   2 </span>     <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">'</span>present<span class="Punctuation">'</span></span><span class="Punctuation">,</span>
+<span class="line-numbers">   3 </span> <span class="Punctuation">}</span>
+</pre></pre>
+
+<p><!-- end code --></p>
+
+<p>Try it yourself:</p>
+
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> ralsh user james
+</pre></pre>
+
+<p><!-- end code --></p>
+
+
+
+</div><div class='slide'>
+
+<h1>    More Resources</h1>
 
 <p><!-- begin code{:lang=>"shell-unix-generic", :name=>"examples/ralsh.sh"} --></p>
 
@@ -242,9 +297,9 @@
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> file <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">&quot;</span>/tmp/example_file<span class="Punctuation">&quot;</span></span><span class="Punctuation">:</span>
-<span class="line-numbers">   2 </span>     <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> present<span class="Punctuation">,</span>
+<span class="line-numbers">   2 </span>     <span class="ControlKeyword">ensure</span>  <span class="Punctuation">=&gt;</span> present<span class="Punctuation">,</span>
 <span class="line-numbers">   3 </span>     content <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>This is a test<span class="CharacterConstant">\n</span><span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
-<span class="line-numbers">   4 </span>     mode <span class="Punctuation">=&gt;</span> <span class="Integer">640</span><span class="Punctuation">,</span>
+<span class="line-numbers">   4 </span>     mode    <span class="Punctuation">=&gt;</span> <span class="Integer">640</span><span class="Punctuation">,</span>
 <span class="line-numbers">   5 </span> <span class="Punctuation">}</span>
 </pre></pre>
 
@@ -332,6 +387,14 @@
 
 <p><!-- end code --></p>
 
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> puppet examples/class_but_with_no_include.pp
+</pre></pre>
+
+<p><!-- end code --></p>
+
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
@@ -359,6 +422,14 @@
 
 <p><!-- end code --></p>
 
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> puppet examples/class_with_include.pp
+</pre></pre>
+
+<p><!-- end code --></p>
+
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
@@ -373,8 +444,11 @@
 
 <h1>A Puppet Repository</h1>
 
-<p>Basic Repository Structure:
-<!-- begin code{:lang=>"shell-unix-generic"} --></p>
+<p>Basic Repository Structure:</p>
+
+<p>Usually underneath /etc/puppet</p>
+
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> manifests/site.pp
@@ -392,19 +466,16 @@
 
 <h1>Version Control</h1>
 
-<p>Version Control your Repository:
-<!-- begin code{:lang=>"shell-unix-generic"} --></p>
+<p>Manifests are text so version control your manifest code.</p>
 
-<pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> cd modules
-<span class="line-numbers">   2 </span> git init
-<span class="line-numbers">   3 </span> git add *
-<span class="line-numbers">   4 </span> git commit -m <span class="String"><span class="Punctuation">&quot;</span>Adding module structure<span class="Punctuation">&quot;</span></span>
-<span class="line-numbers">   5 </span> git remote add origin git@github.com:/jamtur01/modules.git
-<span class="line-numbers">   6 </span> git push origin master
-</pre></pre>
+<ul>
+<li>Git</li>
+<li>Subversion</li>
+<li>Bazaar</li>
+<li>etc</li>
+</ul>
 
-<p><!-- end code --></p>
+<p>Tip: pre and post commit hooks</p>
 
 
 
@@ -421,6 +492,11 @@
 </pre></pre>
 
 <p><!-- end code --></p>
+
+<ul>
+<li>Autoloading</li>
+<li>Namespacing</li>
+</ul>
 
 <p>To use: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
@@ -555,6 +631,8 @@
 
 <p><!-- end code --></p>
 
+<p>Correct - output</p>
+
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
@@ -661,6 +739,14 @@
 
 </div><div class='slide'>
 
+<h1>    Running the Agent Again</h1>
+
+<p>Second agent run</p>
+
+
+
+</div><div class='slide'>
+
 <h1>Doing Something Useful</h1>
 
 <p>I always start with <code>sudo</code>.</p>
@@ -672,12 +758,10 @@
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> 
 <span class="line-numbers">   2 </span> <span class="ControlKeyword">class</span> <span class="ClassName">sudo</span> <span class="Punctuation">{</span>
-<span class="line-numbers">   3 </span>     file <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">&quot;</span>/usr/bin/sudo<span class="Punctuation">&quot;</span></span><span class="Punctuation">:</span>
-<span class="line-numbers">   4 </span>         owner <span class="Punctuation">=&gt;</span> root<span class="Punctuation">,</span>
-<span class="line-numbers">   5 </span>         group <span class="Punctuation">=&gt;</span> wheel<span class="Punctuation">,</span>
-<span class="line-numbers">   6 </span>         mode <span class="Punctuation">=&gt;</span> <span class="Integer">4111</span>
-<span class="line-numbers">   7 </span>     <span class="Punctuation">}</span>
-<span class="line-numbers">   8 </span> <span class="Punctuation">}</span>
+<span class="line-numbers">   3 </span>     package <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">&quot;</span>sudo<span class="Punctuation">&quot;</span></span><span class="Punctuation">:</span>
+<span class="line-numbers">   4 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> present<span class="Punctuation">,</span>
+<span class="line-numbers">   5 </span>     <span class="Punctuation">}</span>
+<span class="line-numbers">   6 </span> <span class="Punctuation">}</span>
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -699,7 +783,7 @@
 <span class="line-numbers">   2 </span>     owner <span class="Punctuation">=&gt;</span> root<span class="Punctuation">,</span>
 <span class="line-numbers">   3 </span>     group <span class="Punctuation">=&gt;</span> wheel<span class="Punctuation">,</span>
 <span class="line-numbers">   4 </span>     mode <span class="Punctuation">=&gt;</span> <span class="Integer">440</span><span class="Punctuation">,</span>
-<span class="line-numbers">   5 </span>     source <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>puppet:///sudo/sudoers<span class="Punctuation">&quot;</span></span>
+<span class="line-numbers">   5 </span>     source <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>puppet:///sudo/sudoers<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
 <span class="line-numbers">   6 </span> <span class="Punctuation">}</span>
 </pre></pre>
 
@@ -714,15 +798,14 @@
 <p><!-- begin code{:lang=>"ruby"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> file <span class="Punctuation">{</span> sudo<span class="Punctuation">:</span>
-<span class="line-numbers">   2 </span>     path <span class="Punctuation">=&gt;</span> <span class="Variable"><span class="Punctuation">$</span>operatingsystem</span> <span class="KeywordOperator">?</span> <span class="Punctuation">{</span>
-<span class="line-numbers">   3 </span>         darwin <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/usr/bin/sudo<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
-<span class="line-numbers">   4 </span>         default <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/usr/sbin/sudo<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
-<span class="line-numbers">   5 </span>     <span class="Punctuation">}</span><span class="Punctuation">,</span>
-<span class="line-numbers">   6 </span>     owner <span class="Punctuation">=&gt;</span> root<span class="Punctuation">,</span>
-<span class="line-numbers">   7 </span>     group <span class="Punctuation">=&gt;</span> <span class="Integer">0</span><span class="Punctuation">,</span>
-<span class="line-numbers">   8 </span>     mode <span class="Punctuation">=&gt;</span> <span class="Integer">4111</span>
-<span class="line-numbers">   9 </span> <span class="Punctuation">}</span>
+<pre class="amy"><span class="line-numbers">   1 </span> file <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">&quot;</span>/etc/sudoers<span class="Punctuation">&quot;</span></span><span class="Punctuation">:</span>
+<span class="line-numbers">   2 </span>     owner <span class="Punctuation">=&gt;</span> root<span class="Punctuation">,</span>
+<span class="line-numbers">   3 </span>     group <span class="Punctuation">=&gt;</span> <span class="Variable"><span class="Punctuation">$</span>operatingsystem</span> <span class="KeywordOperator">?</span> <span class="Punctuation">{</span>
+<span class="line-numbers">   4 </span>         darwin <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>wheel<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
+<span class="line-numbers">   5 </span>         default <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>root<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
+<span class="line-numbers">   6 </span>     <span class="Punctuation">}</span><span class="Punctuation">,</span>
+<span class="line-numbers">   7 </span>     mode <span class="Punctuation">=&gt;</span> <span class="Integer">440</span><span class="Punctuation">,</span>
+<span class="line-numbers">   8 </span> <span class="Punctuation">}</span>
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -813,7 +896,7 @@
 <pre class="amy"><span class="line-numbers">   1 </span> define apache<span class="Punctuation">::</span><span class="FunctionName">vhost</span><span class="Punctuation">(</span><span class="Variable"><span class="Punctuation">$</span>docroot</span><span class="Punctuation">,</span> <span class="Variable"><span class="Punctuation">$</span>ensure</span> <span class="KeywordOperator">=</span> present<span class="Punctuation">)</span> <span class="Punctuation">{</span>
 <span class="line-numbers">   2 </span>     file <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">&quot;</span>/tmp/apache/sites/$name<span class="Punctuation">&quot;</span></span><span class="Punctuation">:</span>
 <span class="line-numbers">   3 </span>         content <span class="Punctuation">=&gt;</span> <span class="FunctionName">template</span><span class="Punctuation">(</span><span class="String"><span class="Punctuation">&quot;</span>apache/vhost.erb<span class="Punctuation">&quot;</span></span><span class="Punctuation">)</span><span class="Punctuation">,</span>
-<span class="line-numbers">   4 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> <span class="Variable"><span class="Punctuation">$</span>ensure</span>
+<span class="line-numbers">   4 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> <span class="Variable"><span class="Punctuation">$</span>ensure</span><span class="Punctuation">,</span>
 <span class="line-numbers">   5 </span>     <span class="Punctuation">}</span>
 <span class="line-numbers">   6 </span> <span class="Punctuation">}</span>
 </pre></pre>
@@ -828,23 +911,17 @@
 
 </div><div class='slide'>
 
-<h1>    Using Definitions</h1>
+<h1>    Using Simple Definitions</h1>
 
-<p><!-- begin code{:lang=>"ruby", :name=>"repo/modules/apache/manifests/init.pp"} --></p>
+<p><!-- begin code{:lang=>"ruby"} --></p>
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> <span class="ControlKeyword">class</span> <span class="ClassName">apache</span> <span class="Punctuation">{</span>
 <span class="line-numbers">   2 </span>     apache<span class="Punctuation">::</span><span class="FunctionName">vhost</span> <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">'</span>reductivelabs.com<span class="Punctuation">'</span></span><span class="Punctuation">:</span>
 <span class="line-numbers">   3 </span>         docroot <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/var/www/reductivelabs.com<span class="Punctuation">&quot;</span></span>
 <span class="line-numbers">   4 </span>     <span class="Punctuation">}</span>
-<span class="line-numbers">   5 </span>     apache<span class="Punctuation">::</span><span class="FunctionName">vhost</span> <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">'</span>foo.com<span class="Punctuation">'</span></span><span class="Punctuation">:</span>
-<span class="line-numbers">   6 </span>         docroot <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/var/www/foo.com<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
-<span class="line-numbers">   7 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> absent
-<span class="line-numbers">   8 </span>     <span class="Punctuation">}</span>
-<span class="line-numbers">   9 </span> <span class="Punctuation">}</span>
+<span class="line-numbers">   5 </span> <span class="Punctuation">}</span>
 </pre></pre>
-
-<div class="codeurl">repo/modules/apache/manifests/init.pp</div>
 
 <p><!-- end code --></p>
 
@@ -862,16 +939,35 @@
 <span class="line-numbers">   3 </span>     <span class="Variable"><span class="Punctuation">$</span>enabled</span> <span class="Punctuation">=&gt;</span> <span class="Variable"><span class="Punctuation">$</span>ensure</span> <span class="KeywordOperator">?</span> <span class="Punctuation">{</span> enabled <span class="Punctuation">=&gt;</span> symlink<span class="Punctuation">,</span> default <span class="Punctuation">=&gt;</span> absent <span class="Punctuation">}</span>
 <span class="line-numbers">   4 </span>     file <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">&quot;</span>/tmp/apache/sites-available/$name<span class="Punctuation">&quot;</span></span><span class="Punctuation">:</span>
 <span class="line-numbers">   5 </span>         content <span class="Punctuation">=&gt;</span> <span class="FunctionName">template</span><span class="Punctuation">(</span><span class="String"><span class="Punctuation">&quot;</span>apache/vhost.erb<span class="Punctuation">&quot;</span></span><span class="Punctuation">)</span><span class="Punctuation">,</span>
-<span class="line-numbers">   6 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> <span class="Variable"><span class="Punctuation">$</span>available</span>
+<span class="line-numbers">   6 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> <span class="Variable"><span class="Punctuation">$</span>available</span><span class="Punctuation">,</span>
 <span class="line-numbers">   7 </span>     <span class="Punctuation">}</span>
 <span class="line-numbers">   8 </span>     file <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">&quot;</span>/tmp/apache/sites-enabled/$name<span class="Punctuation">&quot;</span></span><span class="Punctuation">:</span>
 <span class="line-numbers">   9 </span>         target <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/tmp/apache/sites-available/$name<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
-<span class="line-numbers">  10 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> <span class="Variable"><span class="Punctuation">$</span>enabled</span>
+<span class="line-numbers">  10 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> <span class="Variable"><span class="Punctuation">$</span>enabled</span><span class="Punctuation">,</span>
 <span class="line-numbers">  11 </span>     <span class="Punctuation">}</span>
 <span class="line-numbers">  12 </span> <span class="Punctuation">}</span>
 </pre></pre>
 
 <div class="codeurl">repo/modules/apache/manifests/vhost2.pp</div>
+
+<p><!-- end code --></p>
+
+
+
+</div><div class='slide'>
+
+<h1>    Using Complicated Definitions</h1>
+
+<p><!-- begin code{:lang=>"ruby"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> <span class="ControlKeyword">class</span> <span class="ClassName">apache</span> <span class="Punctuation">{</span>
+<span class="line-numbers">   2 </span>     apache<span class="Punctuation">::</span><span class="FunctionName">vhost</span> <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">'</span>foo.com<span class="Punctuation">'</span></span><span class="Punctuation">:</span>
+<span class="line-numbers">   3 </span>         docroot <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/var/www/foo.com<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
+<span class="line-numbers">   4 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> absent<span class="Punctuation">,</span>
+<span class="line-numbers">   5 </span>     <span class="Punctuation">}</span>
+<span class="line-numbers">   6 </span> <span class="Punctuation">}</span>
+</pre></pre>
 
 <p><!-- end code --></p>
 
@@ -897,11 +993,9 @@
 
 <h1>Conclusion</h1>
 
-<blockquote>
-    
-</blockquote>
-
-<p>james@lovedthanlost.net</p>
+<ul>
+<li>Awesome right? </li>
+</ul>
 
 </div>
 </div> <!-- presentation -->

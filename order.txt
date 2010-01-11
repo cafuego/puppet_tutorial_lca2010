@@ -1,15 +1,16 @@
 Introduction to Managed Infrastructures with Puppet
-All About Configuration Management
+Configuration Management
 All About Puppet
+More About Puppet
 Goals Of This Presentation
 Getting Started
     Getting Help
-    Versions
     Installing
     Installing Facter
     Installing Puppet
 Introduction to Puppet
     Resources
+    More Resources
     Language
     Executables
 Your First Puppet Script
@@ -29,6 +30,7 @@ Starting The Server
     Certificates
     Welcome to the Certificate Authority
     Signing Client Certificates
+    Running the Agent Again
 Doing Something Useful
     Managing Files
     Managing Heterogeneity
@@ -37,7 +39,8 @@ Other Language Functions
     Relationships
 Definitions
     Apache Virtual Hosts
-    Using Definitions
+    Using Simple Definitions
     Complicated Virtual Host
+    Using Complicated Definitions
 Things We Skipped
 Conclusion

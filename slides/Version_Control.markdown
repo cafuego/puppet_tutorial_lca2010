@@ -1,7 +1,9 @@
-Version Control your Repository:
-<% code :lang => "shell-unix-generic" do %>cd modules
-git init
-git add *
-git commit -m "Adding module structure"
-git remote add origin git@github.com:/jamtur01/modules.git
-git push origin master<% end %>
+Manifests are text so version control your manifest code.
+
+* Git
+* Subversion
+* Bazaar
+* etc
+
+Tip: pre and post commit hooks
+
