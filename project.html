@@ -342,7 +342,7 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> notice: //File[/tmp/eh]/ensure: created 
+<pre class="amy"><span class="line-numbers">   1 </span>  
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -366,7 +366,7 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> notice: //File[/tmp/eh]/ensure: removed 
+<pre class="amy"><span class="line-numbers">   1 </span>  
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -435,7 +435,7 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> notice: //foo/File[/tmp/foo]/ensure: created 
+<pre class="amy"><span class="line-numbers">   1 </span>  
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -548,9 +548,7 @@
 <p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> puppetmasterd --verbose --no-daemonize --modulepath <span class="Variable"><span class="Punctuation">$</span>PWD</span>/repo/modules \
-<span class="line-numbers">   2 </span> --confdir /tmp/server --vardir /tmp/server \
-<span class="line-numbers">   3 </span> --manifest <span class="Variable"><span class="Punctuation">$</span>PWD</span>/repo/manifests/site.pp --certdnsnames localhost
+<pre class="amy"><span class="line-numbers">   1 </span> puppetmasterd --verbose --no-daemonize --certdnsnames localhost
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -558,14 +556,16 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> info: Starting server <span class="ControlKeyword">for</span> Puppet version 0.24.8
-<span class="line-numbers">   2 </span> info: Creating a new certificate request <span class="ControlKeyword">for</span> phage.local
-<span class="line-numbers">   3 </span> info: Creating a new SSL key at /tmp/server/ssl/private_keys/phage.local.pem
-<span class="line-numbers">   4 </span> info: Autosign is enabled but /tmp/server/autosign.conf is missing
-<span class="line-numbers">   5 </span> info: Signing certificate <span class="ControlKeyword">for</span> CA server
-<span class="line-numbers">   6 </span> info: Signing certificate <span class="ControlKeyword">for</span> phage.local
-<span class="line-numbers">   7 </span> info: Listening on port 8140
-<span class="line-numbers">   8 </span> notice: Starting Puppet server version 0.24.8
+<pre class="amy"><span class="line-numbers">   1 </span> info: Creating a new SSL key <span class="ControlKeyword">for</span> ca
+<span class="line-numbers">   2 </span> info: Creating a new SSL certificate request <span class="ControlKeyword">for</span> ca
+<span class="line-numbers">   3 </span> notice: Signed certificate request <span class="ControlKeyword">for</span> ca
+<span class="line-numbers">   4 </span> notice: Rebuilding inventory file
+<span class="line-numbers">   5 </span> info: Creating a new certificate revocation list
+<span class="line-numbers">   6 </span> info: Creating a new SSL key <span class="ControlKeyword">for</span> pelin.lovedthanlost.net
+<span class="line-numbers">   7 </span> info: Creating a new SSL certificate request <span class="ControlKeyword">for</span> pelin.lovedthanlost.net
+<span class="line-numbers">   8 </span> notice: pelin.lovedthanlost.net has a waiting certificate request
+<span class="line-numbers">   9 </span> notice: Signed certificate request <span class="ControlKeyword">for</span> pelin.lovedthanlost.net
+<span class="line-numbers">  10 </span> notice: Starting Puppet server version 0.25.3
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -581,12 +581,12 @@
 <ul>
 <li><code>--verbose</code>: Provide extra logging</li>
 <li><code>--no-daemonize</code>: Do not background</li>
-<li><code>--modulepath $PWD/repo/modules</code>: Specify where to find our modules</li>
-<li><code>--confdir /tmp/server</code>: Use a non-standard configuration directory</li>
-<li><code>--vardir /tmp/server</code>: Use a non-standard state/var directory</li>
-<li><code>--manifest $PWD/repo/manifests/site.pp</code>: Specify the starting manifest to parse</li>
 <li><code>--certdnsnames localhost</code>: Configure <code>localhost</code> as an alias in the SSL Certificate</li>
 </ul>
+
+<p>Other arguments at:</p>
+
+<p>http://reductivelabs.com/trac/puppet/wiki/ConfigurationReference</p>
 
 
 
@@ -597,7 +597,7 @@
 <p><!-- begin code{:lang=>"shell-unix-generic", :name=>"examples/default_server_arguments.sh"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> puppetmasterd --configprint modulepath
+<pre class="amy"><span class="line-numbers">   1 </span> puppetmasterd --configprint manifestdir
 <span class="line-numbers">   2 </span> puppetmasterd --configprint confdir
 <span class="line-numbers">   3 </span> puppetmasterd --configprint vardir
 </pre></pre>
@@ -609,9 +609,7 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> /etc/puppet/modules:/usr/share/puppet/modules
-<span class="line-numbers">   2 </span> /etc/puppet
-<span class="line-numbers">   3 </span> /var/puppet 
+<pre class="amy"><span class="line-numbers">   1 </span>  
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -625,7 +623,7 @@
 <p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> sudo puppetd --test --confdir /tmp/server --vardir /tmp/server --server localhost
+<pre class="amy"><span class="line-numbers">   1 </span> sudo puppetd --test --server localhost
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -635,7 +633,7 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> info: Caching catalog at /tmp/server/state/localconfig.yaml
+<pre class="amy"><span class="line-numbers">   1 </span> info: Caching catalog at /var/puppet/state/localconfig.yaml
 <span class="line-numbers">   2 </span> notice: Starting catalog run
 <span class="line-numbers">   3 </span> notice: //Node[default]/foo/File[/tmp/foo]/ensure: created
 <span class="line-numbers">   4 </span> notice: Finished catalog run <span class="ControlKeyword">in</span> 0.01 seconds
@@ -652,9 +650,12 @@
 <h1>    Agent Arguments</h1>
 
 <ul>
-<li><code>--test</code>: Very helpful argument rollup</li>
-<li><code>--confdir /tmp/server</code>: Use a non-standard configuration directory</li>
-<li><code>--vardir /tmp/server</code>: Use a non-standard state/var directory</li>
+<li><code>--test</code>: Combines the onetime, verbose, ignorecache, no-daemonize, no-usecacheonfailure options</li>
+<li><code>--onetime</code>: Runs the catalog once and stops</li>
+<li><code>--verbose</code>: More verbose output</li>
+<li><code>--ignorecache</code>: Ignores any cached configuration</li>
+<li><code>--no-daemonize</code>: Stops Puppet starting as a daemon</li>
+<li><code>--no-usecacheonfailure</code>: Don't use cache if the run fails </li>
 <li><code>--server localhost</code>: Specify the server to contact</li>
 </ul>
 
@@ -709,8 +710,7 @@
 <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> sudo puppetd --test --confdir /tmp/client --vardir /tmp/client \
-<span class="line-numbers">   2 </span> --server localhost --certname other.madstop.com
+<pre class="amy"><span class="line-numbers">   1 </span> sudo puppetd --test --server localhost --certname other.lovedthanlost.net
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -726,21 +726,13 @@
 <p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> puppetca --confdir /tmp/server/ --vardir /tmp/server --list
-<span class="line-numbers">   2 </span> puppetca --confdir /tmp/server/ --vardir /tmp/server --sign other.madstop.com
+<pre class="amy"><span class="line-numbers">   1 </span> puppetca --list
+<span class="line-numbers">   2 </span> puppetca --sign other.lovedthanlost.net
 </pre></pre>
 
 <p><!-- end code --></p>
 
 <p>Now run the client again.</p>
-
-
-
-</div><div class='slide'>
-
-<h1>    Running the Agent Again</h1>
-
-<p>Second agent run</p>
 
 
 
@@ -866,8 +858,7 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> notice: //rels/File[/tmp/reltest]/ensure: created
-<span class="line-numbers">   2 </span> notice: //rels/Exec[/bin/echo got notified]: Triggering <span class="String"><span class="Punctuation">'</span>refresh<span class="Punctuation">'</span></span> from 1 dependencies 
+<pre class="amy"><span class="line-numbers">   1 </span>  
 </pre></pre>
 
 <p><!-- end code --></p>

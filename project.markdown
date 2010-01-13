@@ -249,18 +249,18 @@ You now have a "complete" Puppet repository, ready to extend.
 Starting The Server
 ===================
 
-<% code :lang => "shell-unix-generic" do %>puppetmasterd --verbose --no-daemonize --modulepath $PWD/repo/modules \
---confdir /tmp/server --vardir /tmp/server \
---manifest $PWD/repo/manifests/site.pp --certdnsnames localhost<% end %>
+<% code :lang => "shell-unix-generic" do %>puppetmasterd --verbose --no-daemonize --certdnsnames localhost<% end %>
 
-Produces: <% code :lang => "shell-unix-generic" do %>info: Starting server for Puppet version 0.24.8
-info: Creating a new certificate request for phage.local
-info: Creating a new SSL key at /tmp/server/ssl/private_keys/phage.local.pem
-info: Autosign is enabled but /tmp/server/autosign.conf is missing
-info: Signing certificate for CA server
-info: Signing certificate for phage.local
-info: Listening on port 8140
-notice: Starting Puppet server version 0.24.8<% end %>
+Produces: <% code :lang => "shell-unix-generic" do %>info: Creating a new SSL key for ca
+info: Creating a new SSL certificate request for ca
+notice: Signed certificate request for ca
+notice: Rebuilding inventory file
+info: Creating a new certificate revocation list
+info: Creating a new SSL key for pelin.lovedthanlost.net
+info: Creating a new SSL certificate request for pelin.lovedthanlost.net
+notice: pelin.lovedthanlost.net has a waiting certificate request
+notice: Signed certificate request for pelin.lovedthanlost.net
+notice: Starting Puppet server version 0.25.3<% end %>
 
 Usually runs as 'puppet' but doesn't have to.
 
@@ -270,11 +270,12 @@ Usually runs as 'puppet' but doesn't have to.
 
 * `--verbose`: Provide extra logging
 * `--no-daemonize`: Do not background
-* `--modulepath $PWD/repo/modules`: Specify where to find our modules
-* `--confdir /tmp/server`: Use a non-standard configuration directory
-* `--vardir /tmp/server`: Use a non-standard state/var directory
-* `--manifest $PWD/repo/manifests/site.pp`: Specify the starting manifest to parse
 * `--certdnsnames localhost`: Configure `localhost` as an alias in the SSL Certificate
+
+Other arguments at:
+
+http://reductivelabs.com/trac/puppet/wiki/ConfigurationReference
+
 
 
     Default Server Arguments
@@ -287,11 +288,11 @@ Produces: <% code :lang => "shell-unix-generic" do %><%= %x{bash examples/defaul
     Running The Agent
 =====================
 
-<% code :lang => "shell-unix-generic" do %>sudo puppetd --test --confdir /tmp/server --vardir /tmp/server --server localhost<% end %>
+<% code :lang => "shell-unix-generic" do %>sudo puppetd --test --server localhost<% end %>
 
 Correct - output
 
-Produces: <% code :lang => "shell-unix-generic" do %>info: Caching catalog at /tmp/server/state/localconfig.yaml
+Produces: <% code :lang => "shell-unix-generic" do %>info: Caching catalog at /var/puppet/state/localconfig.yaml
 notice: Starting catalog run
 notice: //Node[default]/foo/File[/tmp/foo]/ensure: created
 notice: Finished catalog run in 0.01 seconds<% end %>
@@ -302,9 +303,12 @@ Note that we're running as root
     Agent Arguments
 ===================
 
-* `--test`: Very helpful argument rollup
-* `--confdir /tmp/server`: Use a non-standard configuration directory
-* `--vardir /tmp/server`: Use a non-standard state/var directory
+* `--test`: Combines the onetime, verbose, ignorecache, no-daemonize, no-usecacheonfailure options
+* `--onetime`: Runs the catalog once and stops
+* `--verbose`: More verbose output
+* `--ignorecache`: Ignores any cached configuration
+* `--no-daemonize`: Stops Puppet starting as a daemon
+* `--no-usecacheonfailure`: Don't use cache if the run fails 
 * `--server localhost`: Specify the server to contact
 
 
@@ -333,21 +337,13 @@ Produces: <% code :lang => "shell-unix-generic" do %>No certificates to sign<% e
 ===============================
 
 Note the switch to `/tmp/client`:
-<% code :lang => "shell-unix-generic" do %>sudo puppetd --test --confdir /tmp/client --vardir /tmp/client \
---server localhost --certname other.madstop.com<% end %>
+<% code :lang => "shell-unix-generic" do %>sudo puppetd --test --server localhost --certname other.lovedthanlost.net<% end %>
 On the server:<% code :lang => "shell-unix-generic" do %>notice: Host other.madstop.com has a waiting certificate request<% end %>
 
-<% code :lang => "shell-unix-generic" do %>puppetca --confdir /tmp/server/ --vardir /tmp/server --list
-puppetca --confdir /tmp/server/ --vardir /tmp/server --sign other.madstop.com<% end %>
+<% code :lang => "shell-unix-generic" do %>puppetca --list
+puppetca --sign other.lovedthanlost.net<% end %>
 
 Now run the client again.
-
-
-    Running the Agent Again
-===========================
-
-Second agent run
-
 
 
 Doing Something Useful

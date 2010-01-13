@@ -30,7 +30,6 @@ Starting The Server
     Certificates
     Welcome to the Certificate Authority
     Signing Client Certificates
-    Running the Agent Again
 Doing Something Useful
     Managing Files
     Managing Heterogeneity
