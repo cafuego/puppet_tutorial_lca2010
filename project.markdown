@@ -1,6 +1,6 @@
 company: James Turnbull 
 title: Introduction to Configuration Management with Puppet
-footer:  <img src="images/Reductive-100.png" alt="Reductive Labs" align=bottom> Licensed as GPLv3
+footer: Licensed as GPLv3 
 
 <% content_for :css do %>
 #footer { padding: 3em 0;}
@@ -110,7 +110,6 @@ Introduction to Puppet
 > > Resources describe the state of configuration items 
 
 * We've got a custom language
-> > (Mostly) Turing complete
 > > Soon to have Ruby-based DSL
 
 * Some executables

@@ -1,6 +1,6 @@
 company: James Turnbull 
 title: Introduction to Configuration Management with Puppet
-footer:  <img src="images/Reductive-100.png" alt="Reductive Labs" align=bottom> Licensed as GPLv3
+footer: Licensed as GPLv3 
 
 <% content_for :css do %>
 #footer { padding: 3em 0;}
