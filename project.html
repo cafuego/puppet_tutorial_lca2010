@@ -342,7 +342,7 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span>  
+<pre class="amy"><span class="line-numbers">   1 </span> notice: //File[/tmp/eh]/ensure: created 
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -366,7 +366,7 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span>  
+<pre class="amy"><span class="line-numbers">   1 </span> notice: //File[/tmp/eh]/ensure: removed 
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -435,7 +435,7 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span>  
+<pre class="amy"><span class="line-numbers">   1 </span> notice: //foo/File[/tmp/foo]/ensure: created 
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -609,7 +609,9 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span>  
+<pre class="amy"><span class="line-numbers">   1 </span> /etc/puppet/manifests
+<span class="line-numbers">   2 </span> /etc/puppet
+<span class="line-numbers">   3 </span> /var/puppet 
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -858,7 +860,8 @@
 <p>Produces: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span>  
+<pre class="amy"><span class="line-numbers">   1 </span> notice: //rels/File[/tmp/reltest]/ensure: created
+<span class="line-numbers">   2 </span> notice: //rels/Exec[/bin/echo got notified]: Triggering <span class="String"><span class="Punctuation">'</span>refresh<span class="Punctuation">'</span></span> from 1 dependencies 
 </pre></pre>
 
 <p><!-- end code --></p>
