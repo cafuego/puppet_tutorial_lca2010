@@ -72,10 +72,33 @@
 
 </div><div class='slide'>
 
+<h1>About Us</h1>
+
+<ul>
+<li><p>James Turnbull</p>
+
+<ul>
+<li>Puppet's Release Manager</li>
+<li>Author of Pulling Strings with Puppet</li>
+</ul></li>
+<li><p>Avi Miller</p>
+
+<ul>
+<li>Oracle Engineer</li>
+<li>Web, database, virtualisation, and operations guru</li>
+</ul></li>
+</ul>
+
+
+
+</div><div class='slide'>
+
 <h1>Configuration Management</h1>
 
 <ul>
-<li>Automate your world and streamline build and management </li>
+<li>Automate your world</li>
+<li>Streamline lifecycle - build, run, update, decommission</li>
+<li>Compliance to standards</li>
 <li>Make the hetergenous feel homogenous</li>
 <li>Get to the pub sooner...</li>
 </ul>
@@ -95,12 +118,12 @@
 <li><p>Declarative</p>
 
 <blockquote>
-    <p>Declares end state rather than the process</p>
+    <p>Declares end state rather than how to get there</p>
 </blockquote></li>
 <li><p>Idempotent</p>
 
 <blockquote>
-    <p>Repeated applications have the same effect as one</p>
+    <p>Repeated applications have the same effect</p>
 </blockquote></li>
 </ul>
 
@@ -126,7 +149,7 @@
 <ul>
 <li>Get an introduction to Puppet</li>
 <li>Build a simple Puppet Repository</li>
-<li>Know how to use the tool</li>
+<li>Learn how to use the tool</li>
 </ul>
 
 
@@ -151,6 +174,10 @@
 <li><a href="http://groups.google.com/group/puppet-users">http://groups.google.com/group/puppet-users</a></li>
 <li>Wiki <a href="http://reductivelabs.com/trac/puppet/wiki">http://reductivelabs.com/trac/puppet/wiki</a></li>
 <li>Bug Tracker <a href="http://projects.reductivelabs.com">http://projects.reductivelabs.com</a></li>
+<li>Reductive Labs sells support 
+<ul>
+<li>Disclosure: Luke buys us drinks if we say this</li>
+</ul></li>
 </ul>
 
 
@@ -162,7 +189,7 @@
 <p>Lots of ways to install Puppet (and Facter) - you just need Ruby</p>
 
 <ul>
-<li>New Ubuntu LTS release has 0.25.2 - backport otherwise</li>
+<li>New Ubuntu LTS release has 0.25.4 - backport otherwise</li>
 <li>Use EPEL for Fedora/Red Hat</li>
 <li>Use a package - installation from source not recommended for production</li>
 </ul>
@@ -176,6 +203,8 @@
 </pre></pre>
 
 <p><!-- end code --></p>
+
+<p>http://reductivelabs.com/trac/puppet/wiki/DownloadingPuppet</p>
 
 
 
@@ -229,7 +258,7 @@
 
 <blockquote>
     <blockquote>
-        <p>Soon to have Ruby-based DSL</p>
+        <p>Soon to have a Ruby-based DSL</p>
     </blockquote>
 </blockquote></li>
 <li><p>Some executables</p></li>
@@ -275,8 +304,8 @@
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> ralsh package
-<span class="line-numbers">   2 </span> ralsh user jamesturnbull
-<span class="line-numbers">   3 </span> ralsh user foo
+<span class="line-numbers">   2 </span> ralsh user root
+<span class="line-numbers">   3 </span> ralsh service foo 
 <span class="line-numbers">   4 </span> ralsh user foo ensure=present shell=/bin/bash home=/Users/foo
 <span class="line-numbers">   5 </span> ralsh user foo shell=/usr/bin/bash
 <span class="line-numbers">   6 </span> ralsh user foo ensure=absent
@@ -323,6 +352,10 @@
 </ul>
 
 <p>There are more, but this is all we're covering today</p>
+
+<ul>
+<li>Soon to have a single, central puppet executable a la <code>git</code></li>
+</ul>
 
 
 
@@ -454,27 +487,11 @@
 <span class="line-numbers">   2 </span> /etc/puppet/modules/
 <span class="line-numbers">   3 </span> /etc/puppet/modules/mymod/manifests/init.pp
 <span class="line-numbers">   4 </span> /etc/puppet/modules/mymod/templates/mytemplate.erb
-<span class="line-numbers">   5 </span> /etc/puppet/modules/mymod/plugins/puppet/parser/functions/myfunction.rb
+<span class="line-numbers">   5 </span> /etc/puppet/modules/mymod/files/myfile.cfg
+<span class="line-numbers">   6 </span> /etc/puppet/modules/mymod/plugins/puppet/parser/functions/myfunction.rb
 </pre></pre>
 
 <p><!-- end code --></p>
-
-
-
-</div><div class='slide'>
-
-<h1>Version Control</h1>
-
-<p>Manifests are text so version control your manifest code.</p>
-
-<ul>
-<li>Git</li>
-<li>Subversion</li>
-<li>Bazaar</li>
-<li>etc</li>
-</ul>
-
-<p>Tip: pre and post commit hooks</p>
 
 
 
@@ -486,8 +503,8 @@
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> mkdir repo
-<span class="line-numbers">   2 </span> mkdir -p repo/manifests repo/modules/foo/manifests
-<span class="line-numbers">   3 </span> cp examples/class_but_no_include.pp repo/modules/foo/manifests/init.pp
+<span class="line-numbers">   2 </span> mkdir -p /etc/puppet/manifests /etc/puppet/modules/foo/manifests
+<span class="line-numbers">   3 </span> cp examples/class_but_no_include.pp /etc/puppet/modules/foo/manifests/init.pp
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -495,7 +512,7 @@
 <p>To use: <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> puppet --modulepath repo/modules -e <span class="String"><span class="Punctuation">'</span>include foo<span class="Punctuation">'</span></span>
+<pre class="amy"><span class="line-numbers">   1 </span> puppet --modulepath /etc/puppet/modules -e <span class="String"><span class="Punctuation">'</span>include foo<span class="Punctuation">'</span></span>
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -509,6 +526,22 @@
 </div><div class='slide'>
 
 <h1>    Your First Node</h1>
+
+<ul>
+<li>The <code>site.pp</code> file is the root of your Puppet configuration tree</li>
+</ul>
+
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> touch /etc/puppet/manifests/site.pp
+</pre></pre>
+
+<p><!-- end code --></p>
+
+<ul>
+<li>Nodes describe clients and their configuration</li>
+</ul>
 
 <p><!-- begin code{:lang=>"ruby", :name=>"repo/manifests/site.pp"} --></p>
 
@@ -537,6 +570,23 @@
 <p><!-- end code --></p>
 
 <p>You now have a "complete" Puppet repository, ready to extend.</p>
+
+
+
+</div><div class='slide'>
+
+<h1>    Version Control</h1>
+
+<p>Manifests are text! You can easily version control your manifest code.</p>
+
+<ul>
+<li>Git</li>
+<li>Subversion</li>
+<li>Bazaar</li>
+<li>etc</li>
+</ul>
+
+<p>Tip: pre and post commit hooks</p>
 
 
 
@@ -624,7 +674,7 @@
 <p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> sudo puppetd --test --server localhost
+<pre class="amy"><span class="line-numbers">   1 </span> puppetd --test --server localhost
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -641,8 +691,6 @@
 </pre></pre>
 
 <p><!-- end code --></p>
-
-<p>Note that we're running as root</p>
 
 
 
@@ -671,8 +719,9 @@
 <ol>
 <li>Generate Certificate Signing Request (CSR)</li>
 <li>Send CSR to server</li>
-<li>Server signs CSR and produces Certificate</li>
+<li>Sign CSR on Server and produce Certificate</li>
 <li>Client retrieves Certificate</li>
+<li>Connection authenticated and encrypted</li>
 </ol>
 
 
@@ -684,7 +733,7 @@
 <p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> puppetca --confdir /tmp/server/ --vardir /tmp/server --list
+<pre class="amy"><span class="line-numbers">   1 </span> puppetca --list
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -711,7 +760,7 @@
 <!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> sudo puppetd --test --server localhost --certname other.lovedthanlost.net
+<pre class="amy"><span class="line-numbers">   1 </span> sudo puppetd --test --server localhost --certname other.example.com
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -719,7 +768,7 @@
 <p>On the server:<!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
-<pre class="amy"><span class="line-numbers">   1 </span> notice: Host other.madstop.com has a waiting certificate request
+<pre class="amy"><span class="line-numbers">   1 </span> notice: Host other.example.com has a waiting certificate request
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -728,7 +777,7 @@
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> puppetca --list
-<span class="line-numbers">   2 </span> puppetca --sign other.lovedthanlost.net
+<span class="line-numbers">   2 </span> puppetca --sign other.example.com
 </pre></pre>
 
 <p><!-- end code --></p>
@@ -741,9 +790,16 @@
 
 <h1>Doing Something Useful</h1>
 
-<p>I always start with <code>sudo</code>.</p>
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
-<p>In <code>repo/modules/sudo/manifests/init.pp</code>:</p>
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> mkdir -p /etc/puppet/modules/sudo/{files,templates,manifests}
+<span class="line-numbers">   2 </span> touch /etc/puppet/modules/sudo/manifests/init.pp
+</pre></pre>
+
+<p><!-- end code --></p>
+
+<p>In <code>/etc/puppet/modules/sudo/manifests/init.pp</code>:</p>
 
 <p><!-- begin code{:lang=>"ruby"} --></p>
 
@@ -758,7 +814,7 @@
 
 <p><!-- end code --></p>
 
-<p>Add <code>sudo</code> to the default node in <code>site.pp</code>.</p>
+<p>Add <code>sudo</code> to the default node in <code>/etc/puppet/manifests/site.pp</code>.</p>
 
 
 
@@ -766,7 +822,17 @@
 
 <h1>    Managing Files</h1>
 
-<p>Create your sudoers file at <code>repo/modules/sudo/files/sudoers</code>, then add this to your <code>init.pp</code>:</p>
+<p>Create your <code>sudoers</code> file at <code>/etc/puppet/modules/sudo/files/sudoers</code>:</p>
+
+<p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
+
+<pre class='code'>
+<pre class="amy"><span class="line-numbers">   1 </span> cp /etc/sudoers /etc/puppet/modules/sudo/files
+</pre></pre>
+
+<p><!-- end code --></p>
+
+<p>Then add this to your <code>init.pp</code>:</p>
 
 <p><!-- begin code{:lang=>"ruby"} --></p>
 
@@ -775,7 +841,7 @@
 <span class="line-numbers">   2 </span>     owner <span class="Punctuation">=&gt;</span> root<span class="Punctuation">,</span>
 <span class="line-numbers">   3 </span>     group <span class="Punctuation">=&gt;</span> wheel<span class="Punctuation">,</span>
 <span class="line-numbers">   4 </span>     mode <span class="Punctuation">=&gt;</span> <span class="Integer">440</span><span class="Punctuation">,</span>
-<span class="line-numbers">   5 </span>     source <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>puppet:///sudo/sudoers<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
+<span class="line-numbers">   5 </span>     source <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>puppet:///modules/sudo/sudoers<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
 <span class="line-numbers">   6 </span> <span class="Punctuation">}</span>
 </pre></pre>
 
@@ -806,13 +872,33 @@
 
 </div><div class='slide'>
 
-<h1>    Facter</h1>
+<h1>    People Already Doing Useful Things</h1>
+
+<ul>
+<li><p>Collections of modules </p>
+
+<ul>
+<li>http://reductivelabs.com/trac/puppet/wiki/PuppetModules</li>
+<li>GitHub</li>
+</ul></li>
+<li><p>Collections of stand-alone scripts</p>
+
+<ul>
+<li>http://reductivelabs.com/trac/puppet/wiki/PuppetRecipes</li>
+</ul></li>
+</ul>
+
+
+
+</div><div class='slide'>
+
+<h1>Facter</h1>
 
 <p><!-- begin code{:lang=>"shell-unix-generic"} --></p>
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> $ facter <span class="KeywordOperator">|</span> wc -l
-<span class="line-numbers">   2 </span>       68
+<span class="line-numbers">   2 </span>       65
 <span class="line-numbers">   3 </span> $ facter <span class="KeywordOperator">|</span> grep name
 <span class="line-numbers">   4 </span> hostname =<span class="KeywordOperator">&gt;</span> rhizome
 <span class="line-numbers">   5 </span> macosx_productname =<span class="KeywordOperator">&gt;</span> Mac OS X
@@ -830,7 +916,7 @@
 
 <h1>Other Language Functions</h1>
 
-<p>In general, rely on the tutorial on the wiki, not me</p>
+<p>In general, rely on the tutorial on the wiki, not us</p>
 
 <p><a href="http://reductivelabs.com/trac/puppet/wiki/LanguageTutorial">http://reductivelabs.com/trac/puppet/wiki/LanguageTutorial</a></p>
 
@@ -909,8 +995,8 @@
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> <span class="ControlKeyword">class</span> <span class="ClassName">apache</span> <span class="Punctuation">{</span>
-<span class="line-numbers">   2 </span>     apache<span class="Punctuation">::</span><span class="FunctionName">vhost</span> <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">'</span>reductivelabs.com<span class="Punctuation">'</span></span><span class="Punctuation">:</span>
-<span class="line-numbers">   3 </span>         docroot <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/var/www/reductivelabs.com<span class="Punctuation">&quot;</span></span>
+<span class="line-numbers">   2 </span>     apache<span class="Punctuation">::</span><span class="FunctionName">vhost</span> <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">'</span>example.com<span class="Punctuation">'</span></span><span class="Punctuation">:</span>
+<span class="line-numbers">   3 </span>         docroot <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/var/www/example.com<span class="Punctuation">&quot;</span></span>
 <span class="line-numbers">   4 </span>     <span class="Punctuation">}</span>
 <span class="line-numbers">   5 </span> <span class="Punctuation">}</span>
 </pre></pre>
@@ -954,8 +1040,8 @@
 
 <pre class='code'>
 <pre class="amy"><span class="line-numbers">   1 </span> <span class="ControlKeyword">class</span> <span class="ClassName">apache</span> <span class="Punctuation">{</span>
-<span class="line-numbers">   2 </span>     apache<span class="Punctuation">::</span><span class="FunctionName">vhost</span> <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">'</span>foo.com<span class="Punctuation">'</span></span><span class="Punctuation">:</span>
-<span class="line-numbers">   3 </span>         docroot <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/var/www/foo.com<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
+<span class="line-numbers">   2 </span>     apache<span class="Punctuation">::</span><span class="FunctionName">vhost2</span> <span class="Punctuation">{</span> <span class="String"><span class="Punctuation">'</span>anotherexample.com<span class="Punctuation">'</span></span><span class="Punctuation">:</span>
+<span class="line-numbers">   3 </span>         docroot <span class="Punctuation">=&gt;</span> <span class="String"><span class="Punctuation">&quot;</span>/var/www/anotherexample.com<span class="Punctuation">&quot;</span></span><span class="Punctuation">,</span>
 <span class="line-numbers">   4 </span>         <span class="ControlKeyword">ensure</span> <span class="Punctuation">=&gt;</span> absent<span class="Punctuation">,</span>
 <span class="line-numbers">   5 </span>     <span class="Punctuation">}</span>
 <span class="line-numbers">   6 </span> <span class="Punctuation">}</span>
@@ -974,7 +1060,7 @@
 <li>Reporting</li>
 <li>Queueing</li>
 <li>Inheritance</li>
-<li>Storeconfigs</li>
+<li>Stored configuration</li>
 <li>Export/Collect</li>
 <li>Everything else we didn't cover</li>
 </ul>

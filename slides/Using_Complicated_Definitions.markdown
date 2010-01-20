@@ -1,6 +1,6 @@
 <% code :lang => "ruby" do %>class apache {
-    apache::vhost { 'foo.com':
-        docroot => "/var/www/foo.com",
+    apache::vhost2 { 'anotherexample.com':
+        docroot => "/var/www/anotherexample.com",
         ensure => absent,
     }
 }<% end %>

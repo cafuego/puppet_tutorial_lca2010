@@ -2,6 +2,6 @@
 > > Resources describe the state of configuration items 
 
 * We've got a custom language
-> > Soon to have Ruby-based DSL
+> > Soon to have a Ruby-based DSL
 
 * Some executables

@@ -1,6 +1,8 @@
-I always start with `sudo`.
+<% code :lang => "shell-unix-generic" do %>mkdir -p /etc/puppet/modules/sudo/{files,templates,manifests}
+touch /etc/puppet/modules/sudo/manifests/init.pp
+<% end %> 
 
-In `repo/modules/sudo/manifests/init.pp`:
+In `/etc/puppet/modules/sudo/manifests/init.pp`:
 
 <% code :lang => "ruby" do %>
 class sudo {
@@ -9,4 +11,4 @@ class sudo {
     }
 }<% end %>
 
-Add `sudo` to the default node in `site.pp`.
+Add `sudo` to the default node in `/etc/puppet/manifests/site.pp`.

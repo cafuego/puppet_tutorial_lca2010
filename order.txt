@@ -1,4 +1,5 @@
 Introduction to Managed Infrastructures with Puppet
+About Us
 Configuration Management
 All About Puppet
 More About Puppet
@@ -18,10 +19,10 @@ Your First Puppet Script
     Puppet Classes
     Including Classes
 A Puppet Repository
-Version Control
     Your First Module
     Your First Node
     Putting It Together
+    Version Control
 Starting The Server
     Server Arguments
     Default Server Arguments
@@ -33,7 +34,8 @@ Starting The Server
 Doing Something Useful
     Managing Files
     Managing Heterogeneity
-    Facter
+    People Already Doing Useful Things
+Facter
 Other Language Functions
     Relationships
 Definitions

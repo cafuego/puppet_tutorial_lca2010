@@ -18,10 +18,24 @@ Presentation available at `git://github.com/jamtur01/puppet_tutorial_lca2010.git
 
 
 
+About Us
+========
+
+* James Turnbull
+  - Puppet's Release Manager
+  - Author of Pulling Strings with Puppet
+
+* Avi Miller
+  - Oracle Engineer
+  - Web, database, virtualisation, and operations guru
+
+
 Configuration Management
 ========================
 
-* Automate your world and streamline build and management 
+* Automate your world
+* Streamline lifecycle - build, run, update, decommission
+* Compliance to standards
 * Make the hetergenous feel homogenous
 * Get to the pub sooner...
 
@@ -33,10 +47,10 @@ All About Puppet
 > Runs continously
 
 * Declarative
-> Declares end state rather than the process
+> Declares end state rather than how to get there
 
 * Idempotent
-> Repeated applications have the same effect as one
+> Repeated applications have the same effect
 
 
 More About Puppet
@@ -53,7 +67,7 @@ Goals Of This Presentation
 
 * Get an introduction to Puppet
 * Build a simple Puppet Repository
-* Know how to use the tool
+* Learn how to use the tool
 
 
 Getting Started
@@ -70,19 +84,24 @@ Getting Started
 * <http://groups.google.com/group/puppet-users>
 * Wiki <http://reductivelabs.com/trac/puppet/wiki>
 * Bug Tracker <http://projects.reductivelabs.com>
+* Reductive Labs sells support 
+  - Disclosure: Luke buys us drinks if we say this
 
 
     Installing
 ==============
 
 Lots of ways to install Puppet (and Facter) - you just need Ruby
-* New Ubuntu LTS release has 0.25.2 - backport otherwise
+* New Ubuntu LTS release has 0.25.4 - backport otherwise
 * Use EPEL for Fedora/Red Hat
 * Use a package - installation from source not recommended for production
 
 <% code :lang => "shell-unix-generic" do %>gem install facter puppet
 apt-get install puppet facter
 yum install puppet puppet-server facter<% end %>
+
+http://reductivelabs.com/trac/puppet/wiki/DownloadingPuppet
+
 
 
     Installing Facter
@@ -110,7 +129,7 @@ Introduction to Puppet
 > > Resources describe the state of configuration items 
 
 * We've got a custom language
-> > Soon to have Ruby-based DSL
+> > Soon to have a Ruby-based DSL
 
 * Some executables
 
@@ -154,6 +173,8 @@ Try `ralsh package`, and remind me to tell you to play around here.
 * `puppetca`
 
 There are more, but this is all we're covering today
+
+* Soon to have a single, central puppet executable a la `git`
 
 
 Your First Puppet Script
@@ -202,37 +223,30 @@ Basic Repository Structure:
 /etc/puppet/modules/
 /etc/puppet/modules/mymod/manifests/init.pp
 /etc/puppet/modules/mymod/templates/mytemplate.erb
+/etc/puppet/modules/mymod/files/myfile.cfg
 /etc/puppet/modules/mymod/plugins/puppet/parser/functions/myfunction.rb<% end %>
-
-
-Version Control
-===============
-
-Manifests are text so version control your manifest code.
-
-* Git
-* Subversion
-* Bazaar
-* etc
-
-Tip: pre and post commit hooks
-
 
 
     Your First Module
 =====================
 
 <% code :lang => "shell-unix-generic" do %>mkdir repo
-mkdir -p repo/manifests repo/modules/foo/manifests
-cp examples/class_but_no_include.pp repo/modules/foo/manifests/init.pp<% end %>
+mkdir -p /etc/puppet/manifests /etc/puppet/modules/foo/manifests
+cp examples/class_but_no_include.pp /etc/puppet/modules/foo/manifests/init.pp<% end %>
 
-To use: <% code :lang => "shell-unix-generic" do %>puppet --modulepath repo/modules -e 'include foo'<% end %>
+To use: <% code :lang => "shell-unix-generic" do %>puppet --modulepath /etc/puppet/modules -e 'include foo'<% end %>
 
 * Modules are autoloaded and namespaced
 
 
     Your First Node
 ===================
+
+* The `site.pp` file is the root of your Puppet configuration tree
+
+<% code :lang => "shell-unix-generic" do %>touch /etc/puppet/manifests/site.pp<% end %>
+
+* Nodes describe clients and their configuration
 
 <%= code "repo/manifests/site.pp", :lang => "ruby" %>
 
@@ -243,6 +257,20 @@ To use: <% code :lang => "shell-unix-generic" do %>puppet --modulepath repo/modu
 <% code :lang => "shell-unix-generic" do %>puppet /etc/puppet/manifests/site.pp<% end %>
 
 You now have a "complete" Puppet repository, ready to extend.
+
+
+    Version Control
+===================
+
+Manifests are text! You can easily version control your manifest code.
+
+* Git
+* Subversion
+* Bazaar
+* etc
+
+Tip: pre and post commit hooks
+
 
 
 Starting The Server
@@ -287,7 +315,7 @@ Produces: <% code :lang => "shell-unix-generic" do %><%= %x{bash examples/defaul
     Running The Agent
 =====================
 
-<% code :lang => "shell-unix-generic" do %>sudo puppetd --test --server localhost<% end %>
+<% code :lang => "shell-unix-generic" do %>puppetd --test --server localhost<% end %>
 
 Correct - output
 
@@ -295,8 +323,6 @@ Produces: <% code :lang => "shell-unix-generic" do %>info: Caching catalog at /v
 notice: Starting catalog run
 notice: //Node[default]/foo/File[/tmp/foo]/ensure: created
 notice: Finished catalog run in 0.01 seconds<% end %>
-
-Note that we're running as root
 
 
     Agent Arguments
@@ -318,14 +344,15 @@ This is just Standard SSL(tm).
 
 1. Generate Certificate Signing Request (CSR)
 2. Send CSR to server
-3. Server signs CSR and produces Certificate
+3. Sign CSR on Server and produce Certificate
 4. Client retrieves Certificate
+5. Connection authenticated and encrypted
 
 
     Welcome to the Certificate Authority
 ========================================
 
-<% code :lang => "shell-unix-generic" do %>puppetca --confdir /tmp/server/ --vardir /tmp/server --list<% end %>
+<% code :lang => "shell-unix-generic" do %>puppetca --list<% end %>
 
 Produces: <% code :lang => "shell-unix-generic" do %>No certificates to sign<% end %>
 
@@ -336,11 +363,11 @@ Produces: <% code :lang => "shell-unix-generic" do %>No certificates to sign<% e
 ===============================
 
 Note the switch to `/tmp/client`:
-<% code :lang => "shell-unix-generic" do %>sudo puppetd --test --server localhost --certname other.lovedthanlost.net<% end %>
-On the server:<% code :lang => "shell-unix-generic" do %>notice: Host other.madstop.com has a waiting certificate request<% end %>
+<% code :lang => "shell-unix-generic" do %>sudo puppetd --test --server localhost --certname other.example.com<% end %>
+On the server:<% code :lang => "shell-unix-generic" do %>notice: Host other.example.com has a waiting certificate request<% end %>
 
 <% code :lang => "shell-unix-generic" do %>puppetca --list
-puppetca --sign other.lovedthanlost.net<% end %>
+puppetca --sign other.example.com<% end %>
 
 Now run the client again.
 
@@ -348,9 +375,11 @@ Now run the client again.
 Doing Something Useful
 ======================
 
-I always start with `sudo`.
+<% code :lang => "shell-unix-generic" do %>mkdir -p /etc/puppet/modules/sudo/{files,templates,manifests}
+touch /etc/puppet/modules/sudo/manifests/init.pp
+<% end %> 
 
-In `repo/modules/sudo/manifests/init.pp`:
+In `/etc/puppet/modules/sudo/manifests/init.pp`:
 
 <% code :lang => "ruby" do %>
 class sudo {
@@ -359,19 +388,23 @@ class sudo {
     }
 }<% end %>
 
-Add `sudo` to the default node in `site.pp`.
+Add `sudo` to the default node in `/etc/puppet/manifests/site.pp`.
 
 
     Managing Files
 ==================
 
-Create your sudoers file at `repo/modules/sudo/files/sudoers`, then add this to your `init.pp`:
+Create your `sudoers` file at `/etc/puppet/modules/sudo/files/sudoers`:
+
+<% code :lang => "shell-unix-generic" do %>cp /etc/sudoers /etc/puppet/modules/sudo/files<% end %>
+
+Then add this to your `init.pp`:
 
 <% code :lang => "ruby" do %>file { "/etc/sudoers":
     owner => root,
     group => wheel,
     mode => 440,
-    source => "puppet:///sudo/sudoers",
+    source => "puppet:///modules/sudo/sudoers",
 }<% end %>
 
 
@@ -390,8 +423,19 @@ Create your sudoers file at `repo/modules/sudo/files/sudoers`, then add this to 
 
 
 
-    Facter
-==========
+    People Already Doing Useful Things
+======================================
+
+* Collections of modules 
+  - http://reductivelabs.com/trac/puppet/wiki/PuppetModules
+  - GitHub
+
+* Collections of stand-alone scripts
+  - http://reductivelabs.com/trac/puppet/wiki/PuppetRecipes
+
+
+Facter
+======
 
 <% code :lang => "shell-unix-generic" do %>$ facter | wc -l
 <%= %x{facter | wc -l}.chomp %>
@@ -403,9 +447,10 @@ $ <% end %>
 Other Language Functions
 ========================
 
-In general, rely on the tutorial on the wiki, not me
+In general, rely on the tutorial on the wiki, not us
 
 <http://reductivelabs.com/trac/puppet/wiki/LanguageTutorial>
+
 
     Relationships
 =================
@@ -433,8 +478,8 @@ Note the qualified definition name.  This is required for correct autoloading.
 ============================
 
 <% code :lang => "ruby" do %>class apache {
-    apache::vhost { 'reductivelabs.com':
-        docroot => "/var/www/reductivelabs.com"
+    apache::vhost { 'example.com':
+        docroot => "/var/www/example.com"
     }
 }<% end %>
 
@@ -449,8 +494,8 @@ Note the qualified definition name.  This is required for correct autoloading.
 =================================
 
 <% code :lang => "ruby" do %>class apache {
-    apache::vhost { 'foo.com':
-        docroot => "/var/www/foo.com",
+    apache::vhost2 { 'anotherexample.com':
+        docroot => "/var/www/anotherexample.com",
         ensure => absent,
     }
 }<% end %>
@@ -463,7 +508,7 @@ Things We Skipped
 * Reporting
 * Queueing
 * Inheritance
-* Storeconfigs
+* Stored configuration
 * Export/Collect
 * Everything else we didn't cover
 

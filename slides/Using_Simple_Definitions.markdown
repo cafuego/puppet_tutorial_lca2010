@@ -1,5 +1,5 @@
 <% code :lang => "ruby" do %>class apache {
-    apache::vhost { 'reductivelabs.com':
-        docroot => "/var/www/reductivelabs.com"
+    apache::vhost { 'example.com':
+        docroot => "/var/www/example.com"
     }
 }<% end %>

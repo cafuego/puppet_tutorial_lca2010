@@ -5,3 +5,5 @@
 * `puppetca`
 
 There are more, but this is all we're covering today
+
+* Soon to have a single, central puppet executable a la `git`
