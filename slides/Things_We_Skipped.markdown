@@ -1,4 +1,4 @@
-* Dashboard
+* Puppet Dashboard & The Foreman
 * Reporting
 * Queueing
 * Inheritance
