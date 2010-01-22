@@ -4,7 +4,7 @@ Lots of ways to install Puppet (and Facter) - you just need Ruby
 * Use a package - installation from source not recommended for production
 
 <% code :lang => "shell-unix-generic" do %>gem install facter puppet
-apt-get install puppet facter
+aptitude install puppet puppetmaster facter
 yum install puppet puppet-server facter<% end %>
 
 http://reductivelabs.com/trac/puppet/wiki/DownloadingPuppet
